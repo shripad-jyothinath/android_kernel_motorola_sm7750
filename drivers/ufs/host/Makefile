@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: GPL-2.0
+
+obj-$(CONFIG_SCSI_UFS_DWC_TC_PCI) += tc-dwc-g210-pci.o ufshcd-dwc.o tc-dwc-g210.o
+obj-$(CONFIG_SCSI_UFS_DWC_TC_PLATFORM) += tc-dwc-g210-pltfrm.o ufshcd-dwc.o tc-dwc-g210.o
+obj-$(CONFIG_SCSI_UFS_CDNS_PLATFORM) += cdns-pltfrm.o
+obj-$(CONFIG_SCSI_UFS_QCOM) += ufs_qcom.o
+obj-$(CONFIG_SCSI_UFS_QCOM_SCMI) += ufs_qcom_scmi.o
+ufs_qcom-y += ufs-qcom.o
+ufs_qcom_scmi-y += ufs-qcom-scmi.o
+ufs_qcom-$(CONFIG_SCSI_UFS_CRYPTO) += ufs-qcom-ice.o
+ufs_qcom_scmi-$(CONFIG_SCSI_UFS_CRYPTO) += ufs-qcom-ice.o
+ufs_qcom-$(CONFIG_UFSFEATURE) += vendor/ufsfeature.o vendor/ufsfeature-mimic.o
+ufs_qcom-$(CONFIG_UFSHID) += vendor/ufshid.o
+ufs_qcom-$(CONFIG_UFSSID) += vendor/ufssid.o
+ufs_qcom-$(CONFIG_SCSI_UFS_CRYPTO) += ufs-qcom-ice.o
+ufs_qcom-$(CONFIG_UFSWHINT) += vendor/ufswhint.o
+ufs_qcom-$(CONFIG_SCSI_SKHID) += ufs-manual-gc.o
+obj-$(CONFIG_SCSI_UFS_EXYNOS) += ufs-exynos.o
+obj-$(CONFIG_SCSI_UFSHCD_PCI) += ufshcd-pci.o
+obj-$(CONFIG_SCSI_UFSHCD_PLATFORM) += ufshcd-pltfrm.o
+obj-$(CONFIG_SCSI_UFS_HISI) += ufs-hisi.o
+obj-$(CONFIG_SCSI_UFS_MEDIATEK) += ufs-mediatek.o
+obj-$(CONFIG_SCSI_UFS_RENESAS) += ufs-renesas.o
+obj-$(CONFIG_SCSI_UFS_SPRD) += ufs-sprd.o
+obj-$(CONFIG_SCSI_UFS_TI_J721E) += ti-j721e-ufs.o
+obj-$(CONFIG_SCSI_UFS_CRYPTO_QTI) += ufshcd-crypto-qti.o
+
+include $(srctree)/drivers/ufs/host/HID_UFS31/Makefile.features
+ufs_qcom-y += $(addprefix HID_UFS31/, $(UFSF_OBJS))
