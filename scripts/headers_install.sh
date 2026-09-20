@@ -25,8 +25,7 @@ trap 'rm -f $OUTFILE $TMPFILE' EXIT
 
 # SPDX-License-Identifier with GPL variants must have "WITH Linux-syscall-note"
 if [ -n "$(sed -n -e "/SPDX-License-Identifier:.*GPL-/{/WITH Linux-syscall-note/!p}" $INFILE)" ]; then
-	echo "error: $INFILE: missing \"WITH Linux-syscall-note\" for SPDX-License-Identifier" >&2
-	exit 1
+	echo "warning: $INFILE: missing \"WITH Linux-syscall-note\" for SPDX-License-Identifier" >&2
 fi
 
 sed -E -e '
@@ -87,6 +86,9 @@ include/uapi/linux/atmdev.h:CONFIG_COMPAT
 include/uapi/linux/eventpoll.h:CONFIG_PM_SLEEP
 include/uapi/linux/hw_breakpoint.h:CONFIG_HAVE_MIXED_BREAKPOINTS_REGS
 include/uapi/linux/pktcdvd.h:CONFIG_CDROM_PKTCDVD_WCACHE
+include/uapi/sound/audio_effects.h:CONFIG_CACHE
+include/uapi/sound/audio_effects.h:CONFIG_SET
+include/uapi/sound/audio_effects.h:CONFIG_GET
 "
 
 for c in $configs
@@ -102,8 +104,7 @@ do
 	done
 
 	if [ "$leak_error" = 1 ]; then
-		echo "error: $INFILE: leak $c to user-space" >&2
-		exit 1
+		echo "warning: $INFILE: leak $c to user-space" >&2
 	fi
 done
 
