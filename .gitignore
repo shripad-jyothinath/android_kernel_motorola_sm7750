@@ -40,6 +40,7 @@
 *.rmeta
 *.rsi
 *.s
+!*.S
 *.so
 *.so.dbg
 *.su
